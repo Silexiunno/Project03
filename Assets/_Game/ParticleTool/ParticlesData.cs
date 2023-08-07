@@ -6,7 +6,7 @@ using UnityEngine;
 public class ParticlesData : ScriptableObject
 {
   
-    [SerializeField] private Color _color = Color.red; 
+    [SerializeField] private Color _color; 
     [SerializeField] private float _duration = 3f;
     [SerializeField] private float _speed = 0.3f;
     [SerializeField] private bool _playonawake;

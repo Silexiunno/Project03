@@ -8,32 +8,30 @@ public class ParticleDataEditor : Editor
     private SerializedProperty _color;
     private SerializedProperty _duration;
     private SerializedProperty _speed;
-    private SerializedProperty _playonawake;
     private SerializedProperty _startMax;
     private SerializedProperty _startMin;
     private SerializedProperty _particlename;
     private SerializedProperty _default;
 
-    //Color matColor = Color.white;
-
+   
 
     public void OnEnable()
     {
         _color = serializedObject.FindProperty("_color");
         _duration = serializedObject.FindProperty("_duration");
         _speed = serializedObject.FindProperty("_speed");
-        _playonawake = serializedObject.FindProperty("_playonawake");
         _startMax = serializedObject.FindProperty("_startMax");
         _startMin = serializedObject.FindProperty("_startMin");
         _particlename = serializedObject.FindProperty("_particlename");
         _default = serializedObject.FindProperty("_default");
-
+        
      }
 
 
     public override void OnInspectorGUI()
     {
-        //  base.OnInspectorGUI();
+        serializedObject.UpdateIfRequiredOrScript();
+        //base.OnInspectorGUI();
         EditorGUILayout.LabelField("Default Particle", EditorStyles.boldLabel);
         EditorGUILayout.PropertyField(_default, new GUIContent("Particle Prefab", "Place default particle here please!"));
         EditorGUILayout.Space(15);
@@ -44,12 +42,38 @@ public class ParticleDataEditor : Editor
         if (_particlename.stringValue == string.Empty)
         {
             EditorGUILayout.HelpBox
-                ("Please give the Particle a name",
-                MessageType.Warning);
+                ("Please give the Particle a name", MessageType.Warning);
         }
-      
 
-      //  matColor = EditorGUILayout.ColorField("New Color", matColor);
+        // gave up on color 
+
+        EditorGUILayout.PropertyField(_duration, new GUIContent("Duration", "Duration of particle effect"));
+        if (_duration.floatValue <= 0)
+        {
+            EditorGUILayout.HelpBox( "Duration should at least be greater than 0", MessageType.Warning);
+        }
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUIUtility.labelWidth = 1;
+        EditorGUILayout.LabelField("Start Speed of Particle");
+        _speed.floatValue = EditorGUILayout.Slider
+            (_speed.floatValue, 0, 5);
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUIUtility.labelWidth = 1;
+        EditorGUILayout.LabelField("Minimum Particle Size");
+        _startMin.doubleValue = EditorGUILayout.Slider
+           (_startMin.floatValue, 0.001f, 0.03f);
+        EditorGUILayout.EndHorizontal();
+        
+        EditorGUILayout.BeginHorizontal();
+        EditorGUIUtility.labelWidth = 1;
+        EditorGUILayout.LabelField("Maximum Particle Size");
+        _startMax.doubleValue = EditorGUILayout.Slider
+         (_startMax.floatValue, 0.035f, 0.09f);
+        EditorGUILayout.EndHorizontal();
+      
 
 
 
@@ -60,10 +84,14 @@ public class ParticleDataEditor : Editor
             data.Create();
 
         }
+
+
+        serializedObject.ApplyModifiedProperties();
     }
-   
+
+
     
-   
-    
+
+
 }
     
