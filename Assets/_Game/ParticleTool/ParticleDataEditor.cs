@@ -5,7 +5,6 @@ using UnityEditor;
 [CustomEditor(typeof(ParticlesData))]
 public class ParticleDataEditor : Editor
 {
-    private SerializedProperty _color;
     private SerializedProperty _duration;
     private SerializedProperty _speed;
     private SerializedProperty _startMax;
@@ -17,7 +16,7 @@ public class ParticleDataEditor : Editor
 
     public void OnEnable()
     {
-        _color = serializedObject.FindProperty("_color");
+        
         _duration = serializedObject.FindProperty("_duration");
         _speed = serializedObject.FindProperty("_speed");
         _startMax = serializedObject.FindProperty("_startMax");
@@ -31,7 +30,7 @@ public class ParticleDataEditor : Editor
     public override void OnInspectorGUI()
     {
         serializedObject.UpdateIfRequiredOrScript();
-        //base.OnInspectorGUI();
+    
         EditorGUILayout.LabelField("Default Particle", EditorStyles.boldLabel);
         EditorGUILayout.PropertyField(_default, new GUIContent("Particle Prefab", "Place default particle here please!"));
         EditorGUILayout.Space(15);
