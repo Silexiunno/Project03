@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 308780824755184808}
   - component: {fileID: 308780824755184809}
   m_Layer: 0
-  m_Name: Hurt_Particle
+  m_Name: P_Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
